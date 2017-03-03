@@ -54,6 +54,7 @@
   "author": "Nobody <az8321550@gmail.com> (https://bodyno.com)",
   "license": "WTFPL",
   "dependencies": {
+    "antd": "^2.7.4",
     "antd-mobile": "^0.9.14",
     "babel-loader": "^6.2.5",
     "babel-plugin-transform-runtime": "^6.15.0",
@@ -121,6 +122,8 @@
     "karma-mocha-reporter": "^2.0.0",
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-webpack-with-fast-source-maps": "^1.9.2",
+    "less": "^2.7.2",
+    "less-loader": "^2.2.3",
     "mocha": "^3.0.1",
     "nodemon": "^1.10.2",
     "phantomjs-prebuilt": "^2.1.12",

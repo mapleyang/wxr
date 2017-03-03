@@ -126,6 +126,16 @@ webpackConfig.module.loaders.push({
     'postcss'
   ]
 })
+webpackConfig.module.loaders.push({
+  test: /\.less$/,
+  exclude: null,
+  loaders: [
+    'style',
+    BASE_CSS_LOADER,
+    'postcss',
+    'less?sourceMap'
+  ]
+})
 
 webpackConfig.sassLoader = {
   includePaths: paths.client('styles')

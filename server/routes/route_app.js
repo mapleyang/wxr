@@ -1,5 +1,6 @@
 let url = require('url');  
 let dealFn = require('./dealfn.js');
+let cralwer = require('../utils/cralwer.js')
 
 function sendDataFn(req, res, filename, needcity) {
     let query = url.parse(req.url, true).query,
@@ -8,27 +9,41 @@ function sendDataFn(req, res, filename, needcity) {
         readFileName = '',
         sendData = {
             errno: 0,
+            success: true,
             city: city,
             msg: 'ok',
-            data: {}
+            data: "test"
         };
+    // console.log(query)
     if (needcity) {
         readFileName = city + filename;
     } else {
         readFileName = filename;
     }
-    dealFn.readFileData(name + readFileName).then((data) => {
-        sendData.data = data;
-        res.send(JSON.stringify(sendData));
-    }, (msg) => {
-        sendData.errno = -1;
-        sendData.msg = '暂时没有数据';
+    cralwer.getData(query).then((value) => {
+        sendData.data = value;
+        if(value.length === 0) {
+            sendData.success = false;
+            sendData.msg = "当前 URL 无效。"
+        }
         res.send(JSON.stringify(sendData));
     })
+    // dealFn.readFileData(name + readFileName).then((data) => {
+    //     sendData.data = data;
+    //     res.send(JSON.stringify(sendData));
+    // }, (msg) => {
+    //     sendData.errno = -1;
+    //     sendData.msg = '暂时没有数据';
+    //     res.send(JSON.stringify(sendData));
+    // })
 }
 
 exports.index = (req, res) => {
-    res.render('index');
+    console.log(req)
+    var test = {
+        test: "hello"
+    }
+   sendDataFn(req, res, 'coming.json', false);
 }
 
 exports.coming = (req, res, next) => {

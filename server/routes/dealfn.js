@@ -40,6 +40,9 @@ let dealFn = {
 	        })
 	    });
 	    return promise;
+	},
+	getData: (url) => {
+		console.log(url)
 	}
 }
 
