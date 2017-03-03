@@ -114,13 +114,13 @@ config.module.loaders.push({
 // 编译 sass
 if (__DEV__) {
   config.module.loaders.push({
-    test: /\.(scss|css)$/,
-    loaders: ['style', 'css', 'postcss', 'sass']
+    test: /\.(scss|css|less)$/,
+    loaders: ['style', 'css', 'postcss', 'sass', 'less']
   });
 } else {
   config.module.loaders.push({
-    test: /\.(scss|css)$/,
-    loader: ExtractTextPlugin.extract('style', 'css!postcss!sass')
+    test: /\.(scss|css|less)$/,
+    loader: ExtractTextPlugin.extract('style', 'css!postcss!sass!less')
   });
   config.plugins.push(
     new ExtractTextPlugin('css/[name].[contenthash].css')

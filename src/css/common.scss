@@ -1,6 +1,35 @@
 body {
   margin: 0;
+  height: inherit;
 }
+
+#app, .root, .content {
+	height: inherit;
+}
+
+.content {
+	.menuList {
+		width: 150px;
+		height: inherit;
+	    float: left;
+        background: #673399;
+        .menu-item {
+    	    height: 40px;
+		    width: 100%;
+		    border-bottom: 1px #eee solid;
+		    .menu-item-text {
+		    	color: #eee;
+		    	display: inline-block;
+		    	width: 100%;
+			    height: 100%;
+			    text-align: center;
+			    padding-top: 10px;
+		    }
+        }
+	}
+}
+
+
 
 .header {
   padding: 15px 20px;
