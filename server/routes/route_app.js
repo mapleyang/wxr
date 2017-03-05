@@ -1,6 +1,7 @@
 let url = require('url');  
 let dealFn = require('./dealfn.js');
 let cralwer = require('../utils/cralwer.js')
+let ExcelUtil = require('../utils/excelUtil.js')
 
 function sendDataFn(req, res, filename, needcity) {
     let query = url.parse(req.url, true).query,
@@ -20,6 +21,7 @@ function sendDataFn(req, res, filename, needcity) {
     } else {
         readFileName = filename;
     }
+    ExcelUtil.write();
     cralwer.getData(query).then((value) => {
         sendData.data = value;
         if(value.length === 0) {
