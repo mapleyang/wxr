@@ -7,6 +7,7 @@ export default class Page1 extends Component {
     return (
       <div className="page1"> 
       	<Input />
+      	test
       </div>
     );
   }
