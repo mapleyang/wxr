@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
-import { Spin, message, Form, Icon, Input, Button, Row, Col } from 'antd'
+import { Spin, message, Form, Icon, Input, Button, Row, Col, Radio  } from 'antd'
 import './index.scss'
 const FormItem = Form.Item
-
+const RadioGroup = Radio.Group;
+const formItemLayout = {
+  labelCol: { span: 8 },
+  wrapperCol: { span: 14 },
+};
 
 class Home extends Component {
 	constructor(props, context) {
@@ -16,6 +20,10 @@ class Home extends Component {
     this.checkName = this.checkName.bind(this)
   }
 
+  componentDidMount () {
+    this.props.form.setFieldsValue({contentType: "all"})
+  }
+
   handleSubmit(e) {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
@@ -23,7 +31,7 @@ class Home extends Component {
       if (!err) {
         // this.setState({ loading: true })
         console.log(values)
-        fetch("/movie/cinema_detail?url=" + values.url)
+        fetch("/movie/cinema_detail?url=" + values.url + "&fileName=" + values.fileName + "&contentType=" + values.contentType + "&fileType=")
         .then(response => response.json())
         .then(json => { 
           console.log(json)
@@ -62,10 +70,10 @@ class Home extends Component {
           <div className="btmLogin">
             <div className="sy_bottom">
               <h1 id="PerformName">GHCralwer</h1>
-              <Row className="ul-wrap">
-                <Col span={12} offset={6}>
-                  <Spin spinning={this.state.loading}>
-                    <Form inline onSubmit={this.handleSubmit}>
+              <Spin spinning={this.state.loading}>
+                <Form inline onSubmit={this.handleSubmit}>
+                  <Row className="ul-wrap">
+                    <Col span={12} offset={6}>
                       <FormItem hasFeedback>
                         {getFieldDecorator('url', {
                             rules: [{ required: true, message: '请输入目标url' }],
@@ -78,7 +86,7 @@ class Home extends Component {
                         )}
                       </FormItem>
                       <FormItem hasFeedback>
-                        {getFieldDecorator('tag', {
+                        {getFieldDecorator('fileName', {
                           rules: [{ required: true, message: '请输入文件名' }],
                         })(
                           <Input
@@ -89,13 +97,33 @@ class Home extends Component {
                         )}
 
                       </FormItem>
-                      <FormItem>
-                        <Button type="primary" htmlType="submit">执行</Button>
-                      </FormItem>
-                    </Form>
-                  </Spin>
                 </Col>
               </Row>
+              <Row>
+                <Col span={12} offset={6}>
+                  <FormItem
+                  style={{width: '100%'}}
+                   {...formItemLayout}
+                  label="内容类型">
+                  {getFieldDecorator('contentType')(
+                    <RadioGroup>
+                      <Radio value="all">全部</Radio>
+                      <Radio value="text">文字</Radio>
+                      <Radio value="image">图片</Radio>
+                    </RadioGroup>
+                  )}
+                  </FormItem>
+                </Col>
+              </Row>
+              <Row>
+                <Col span={12} offset={6}>
+                  <FormItem>
+                    <Button type="primary" htmlType="submit">执行</Button>
+                  </FormItem>
+                </Col>
+              </Row>
+              </Form>
+            </Spin>
             </div>
           </div>
         <div id="companyName" className="companyName"></div>
@@ -106,3 +134,22 @@ class Home extends Component {
 
 export default Home = Form.create({
 })(Home)  
+
+
+// <Row>
+//   <Col span={12} offset={6}>
+//     <FormItem
+//     style={{width: '100%'}}
+//      {...formItemLayout}
+//     label="输出文件类型">
+//     {getFieldDecorator('fileType')(
+//       <RadioGroup>
+//         <Radio value=".txt">.txt</Radio>
+//         <Radio value=".excel">.excel</Radio>
+//         <Radio value=".doc">.doc</Radio>
+//         <Radio value="img">图片</Radio>
+//       </RadioGroup>
+//     )}
+//   </FormItem>
+//   </Col>
+// </Row>

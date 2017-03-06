@@ -1,7 +1,8 @@
 let url = require('url');  
 let dealFn = require('./dealfn.js');
 let cralwer = require('../utils/cralwer.js')
-let ExcelUtil = require('../utils/excelUtil.js')
+let ExcelUtil = require('../utils/excelUtil.js');
+let fs = require('fs');
 
 function sendDataFn(req, res, filename, needcity) {
     let query = url.parse(req.url, true).query,
@@ -15,21 +16,35 @@ function sendDataFn(req, res, filename, needcity) {
             msg: 'ok',
             data: "test"
         };
-    // console.log(query)
+    console.log(query)
     if (needcity) {
         readFileName = city + filename;
     } else {
         readFileName = filename;
     }
-    ExcelUtil.write();
-    cralwer.getData(query).then((value) => {
-        sendData.data = value;
-        if(value.length === 0) {
-            sendData.success = false;
-            sendData.msg = "当前 URL 无效。"
-        }
-        res.send(JSON.stringify(sendData));
-    })
+    cralwer.getData(query, req, res);
+    // ExcelUtil.write();
+    // cralwer.getData(query, req, res).then((value) => {
+    //     sendData.data = value;
+    //     if(value.length === 0) {
+    //         sendData.success = false;
+    //         sendData.msg = "当前 URL 无效。"
+    //     }
+    //     // res.send(JSON.stringify(sendData));
+    //       // var fileName = req.params.fileName;
+    //       // var filePath = path.join(__dirname, fileName);
+    //       var stats = fs.statSync(filePath); 
+    //       if(stats.isFile()){
+    //         res.set({
+    //           'Content-Type': 'application/octet-stream',
+    //           'Content-Disposition': 'attachment; filename='+fileName,
+    //           'Content-Length': stats.size
+    //         });
+    //         fs.createReadStream(filePath).pipe(res);
+    //       } else {
+    //         res.end(404);
+    //       }
+    // })
     // dealFn.readFileData(name + readFileName).then((data) => {
     //     sendData.data = data;
     //     res.send(JSON.stringify(sendData));
