@@ -6,6 +6,7 @@ let cheerio = require('cheerio');
 let fs = require('fs');
 let path = require('path');
 let mime = require('mime');
+let archiver = require('archiver');
 
 function textRequest (query, req, resq, fileName, time) {
    request(query.url, function (error, res, body) {
@@ -31,41 +32,67 @@ function textRequest (query, req, resq, fileName, time) {
           getChilren($._root.children)
           let num = Math.random() * 100000000000000000;
           fs.writeFile(fileName + num + ".txt", arr,  function(err) {
-             if (err) {
-                 return console.error(err);
-             }
-              console.log("写入成功")
-              let file = path.join(__dirname, '../files/' + query.fileName + time + "/" + num + ".txt");
-              console.log(file + "------")
-              let filename = path.basename(file);
-              let mimetype = mime.lookup(file);        //匹配文件格式
-
-              resq.setHeader('Content-disposition', 'attachment; filename=' + filename);
-              resq.setHeader('Content-type', mimetype);
-
-              let filestream = fs.createReadStream(file);
-              filestream.on('data', function(chunk) {
-                resq.write(chunk);
-              });
-              filestream.on('end', function() {
-                resq.end();
-              });
+           if (err) {  
+               return console.error(err);
+           }
+            zipFiles(query, req, resq, fileName, time);
           });
       }
   })
 }
 
-function (query, req, resq, fileName, time) {
+function imageRequest (query, req, resq, fileName, time) {
   request(query.url, function (error, res, body) {
     if (!error && res.statusCode == 200) {
-      var $ = cheerio.load(body);
-      var img = $('img');
+      let $ = cheerio.load(body);
+      let img = $('img');
       img.each(function (value) {
-        var src = img.attr('src');
+        let src = img.attr('src');
         console.log("img:", src);
       })
     }
   })
+}
+
+function zipFiles (query, req, resq, fileName, time) {
+
+  let output = fs.createWriteStream('./files/' + query.fileName + time + '.zip');
+  let archive = archiver('zip');
+
+  archive.on('error', function(err){
+      throw err;
+  });
+  var dir = path.join(__dirname, "../files");
+  archive.pipe(output);
+  archive.bulk([
+      { 
+        cwd:dir,
+        src: [query.fileName + time, query.fileName + time + '/**'],
+         expand: dir
+      }
+  ]);
+   archive.on('end', function (err){
+      downloadReq(query, req, resq, fileName, time)      
+  });
+  archive.finalize();
+}
+
+function downloadReq (query, req, resq, fileName, time) {
+  let file = path.join(__dirname, '../files/' + query.fileName + time + ".zip");
+  console.log(file + "------")
+  let filename = path.basename(file);
+  let mimetype = mime.lookup(file);        //匹配文件格式
+
+  resq.setHeader('Content-disposition', 'attachment; filename=' + filename);
+  resq.setHeader('Content-type', mimetype);
+
+  let filestream = fs.createReadStream(file);
+  filestream.on('data', function(chunk) {
+    resq.write(chunk);
+  });
+  filestream.on('end', function() {
+    resq.end();
+  });
 }
 
 let cralwer = {
