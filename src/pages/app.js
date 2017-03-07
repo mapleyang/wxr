@@ -39,17 +39,7 @@ class Application extends Component {
   render() {
     return (
       <div className="root"> 
-        <div className="header">
-          <Link to="page1">page1</Link>
-          <Link to="page2">page2</Link>
-          <Link to="page3">page3</Link>
-        </div>  
-        <div className="content">
-          <div className="menuList">
-             {this.getMenuList()}
-          </div>
-          <div>{this.props.children}</div>
-        </div>
+        hello,wxr。
       </div>
     );
   }
