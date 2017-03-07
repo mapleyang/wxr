@@ -46,10 +46,14 @@ function imageRequest (query, req, resq, fileName, time) {
     if (!error && res.statusCode == 200) {
       let $ = cheerio.load(body);
       let img = $('img');
-      img.each(function (value) {
-        let src = img.attr('src');
-        console.log("img:", src);
+      console.log(img['1'].attribs.src)
+      img.each(function (el) {
+        // let src = img.attr('src');
+        // console.log(src)
       })
+      // for (let key in img) {
+      //   console.log(img[key] + "key---")
+      // }
     }
   })
 }
@@ -79,7 +83,6 @@ function zipFiles (query, req, resq, fileName, time) {
 
 function downloadReq (query, req, resq, fileName, time) {
   let file = path.join(__dirname, '../files/' + query.fileName + time + ".zip");
-  console.log(file + "------")
   let filename = path.basename(file);
   let mimetype = mime.lookup(file);        //匹配文件格式
 
@@ -114,6 +117,7 @@ let cralwer = {
         else if(query.contentType === "image") {
 
         }
+        imageRequest(query, req, resq, fileName, time);
     },
 }
 
