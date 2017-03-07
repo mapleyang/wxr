@@ -46,14 +46,14 @@ function imageRequest (query, req, resq, fileName, time) {
     if (!error && res.statusCode == 200) {
       let $ = cheerio.load(body);
       let img = $('img');
-      console.log(img['1'].attribs.src)
       img.each(function (el) {
-        // let src = img.attr('src');
-        // console.log(src)
+        if(img[el.toString()] && img[el.toString()].attribs && img[el.toString()].attribs.src) {
+          let src = img[el.toString()].attribs.src;
+          if(src.match("http") !== null) {
+            request(src).pipe((fs.createWriteStream(fileName + time + el + '.jpg')));
+          }
+        }
       })
-      // for (let key in img) {
-      //   console.log(img[key] + "key---")
-      // }
     }
   })
 }
@@ -112,12 +112,15 @@ let cralwer = {
             console.log("目录创建成功。");
         });
         if(query.contentType === "all") {
+          imageRequest(query, req, resq, fileName, time);
           textRequest(query, req, resq, fileName, time);
         }
         else if(query.contentType === "image") {
-
+          textRequest(query, req, resq, fileName, time);
         }
-        imageRequest(query, req, resq, fileName, time);
+        else {
+          imageRequest(query, req, resq, fileName, time);
+        }
     },
 }
 

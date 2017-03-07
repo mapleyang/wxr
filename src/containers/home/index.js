@@ -74,7 +74,7 @@ class Home extends Component {
               <h1 id="PerformName">GHCralwer</h1>
               <Spin spinning={this.state.loading}>
                 <Form inline onSubmit={this.handleSubmit}>
-                  <Row className="ul-wrap">
+                  <Row className="ul-wrap" style={{paddingBottom: "20px"}}>
                     <Col span={12} offset={6}>
                       <FormItem hasFeedback>
                         {getFieldDecorator('url', {
@@ -101,7 +101,7 @@ class Home extends Component {
                       </FormItem>
                 </Col>
               </Row>
-              <Row>
+              <Row  style={{paddingBottom: "20px"}}>
                 <Col span={12} offset={6}>
                   <FormItem
                   style={{width: '100%'}}>
@@ -115,7 +115,7 @@ class Home extends Component {
                   </FormItem>
                 </Col>
               </Row>
-              <Row>
+              <Row  style={{paddingBottom: "20px"}}>
                 <Col span={12} offset={6}>
                   <FormItem>
                     <Button type="primary" htmlType="submit">执行</Button>
