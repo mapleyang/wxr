@@ -16,7 +16,7 @@ var config = require('./webpack.config');
 var DeployPlugin = require('./deploy.plugin');
 var utils = require('./utils');
 
-var PORT = 8080;
+var PORT = 8089;
 var HOST = utils.getIP();
 
 var args = process.argv;
