@@ -27,10 +27,11 @@ class Home extends Component {
 
   handleSubmit(e) {
     let _this = this;
+    const hide = message.loading('请耐心等待', 0);
+    setTimeout(hide, 2000);
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        // this.setState({ loading: true })
         let url = "/movie/cinema_detail?url=" + values.url + "&fileName=" + values.fileName + "&contentType=" + values.contentType + "&fileType=";
         location.href = url;
         // fetch("/movie/cinema_detail?url=" + values.url + "&fileName=" + values.fileName + "&contentType=" + values.contentType + "&fileType=")
