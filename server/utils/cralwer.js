@@ -95,7 +95,27 @@ function downloadReq (query, req, resq, fileName, time) {
   });
   filestream.on('end', function() {
     resq.end();
+    let rmPath = path.join(__dirname, '../files/');
+    deleteFolderRecursive(rmPath);
   });
+}
+
+function deleteFolderRecursive (path) {
+  var files = [];
+  if(fs.existsSync(path) && fs.readdirSync(path).length !== 0) {
+    files = fs.readdirSync(path);
+    files.forEach(function(file,index){
+        var curPath = path + "/" + file;
+        if(fs.statSync(curPath).isDirectory()) { // recurse
+          deleteFolderRecursive(curPath);
+        } else { // delete file
+          fs.unlinkSync(curPath);
+        }
+    });
+  }
+  else {
+    fs.rmdirSync(path);
+  }
 }
 
 let cralwer = {
