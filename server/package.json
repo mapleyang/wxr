@@ -7,6 +7,7 @@
     "start:strict": "node --use-strict ./bin/www"
   },
   "dependencies": {
+    "archiver": "^1.3.0",
     "body-parser": "~1.13.2",
     "cheerio": "^0.22.0",
     "cookie-parser": "~1.3.5",
@@ -15,6 +16,7 @@
     "excel-export": "^0.5.1",
     "express": "~4.13.1",
     "iconv-lite": "^0.4.13",
+    "mime": "^1.3.4",
     "morgan": "~1.6.1",
     "node-xlrd": "^0.2.4",
     "serve-favicon": "~2.3.0"

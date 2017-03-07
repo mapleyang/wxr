@@ -3,7 +3,8 @@ let dealFn = require('./dealfn.js');
 let cralwer = require('../utils/cralwer.js')
 let ExcelUtil = require('../utils/excelUtil.js');
 let fs = require('fs');
-
+let path = require('path');
+var mime = require('mime');
 function sendDataFn(req, res, filename, needcity) {
     let query = url.parse(req.url, true).query,
         name = query.name || '',

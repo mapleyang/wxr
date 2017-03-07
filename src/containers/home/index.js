@@ -13,6 +13,7 @@ class Home extends Component {
     super(props)
     this.state = {
       loading: false,
+      url: ""
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -25,17 +26,18 @@ class Home extends Component {
   }
 
   handleSubmit(e) {
+    let _this = this;
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
-      // debugger
       if (!err) {
         // this.setState({ loading: true })
-        console.log(values)
-        fetch("/movie/cinema_detail?url=" + values.url + "&fileName=" + values.fileName + "&contentType=" + values.contentType + "&fileType=")
-        .then(response => response.json())
-        .then(json => { 
-          console.log(json)
-        })
+        let url = "/movie/cinema_detail?url=" + values.url + "&fileName=" + values.fileName + "&contentType=" + values.contentType + "&fileType=";
+        location.href = url;
+        // fetch("/movie/cinema_detail?url=" + values.url + "&fileName=" + values.fileName + "&contentType=" + values.contentType + "&fileType=")
+        // .then(response => response.json())
+        // .then(json => { 
+        //   console.log(json)
+        // })
       }
     })
   }
@@ -102,9 +104,7 @@ class Home extends Component {
               <Row>
                 <Col span={12} offset={6}>
                   <FormItem
-                  style={{width: '100%'}}
-                   {...formItemLayout}
-                  label="内容类型">
+                  style={{width: '100%'}}>
                   {getFieldDecorator('contentType')(
                     <RadioGroup>
                       <Radio value="all">全部</Radio>
