@@ -72,59 +72,7 @@ class Home extends Component {
           <div className="sy_top"></div>
           <div className="btmLogin">
             <div className="sy_bottom">
-              <h1 id="PerformName">GHCralwer</h1>
-              <Spin spinning={this.state.loading}>
-                <Form inline onSubmit={this.handleSubmit}>
-                  <Row className="ul-wrap" style={{paddingBottom: "20px"}}>
-                    <Col span={12} offset={6}>
-                      <FormItem hasFeedback>
-                        {getFieldDecorator('url', {
-                            rules: [{ required: true, message: '请输入目标url' }],
-                        })(
-                          <Input
-                            addonBefore="URL"
-                            placeholder="请输入需要爬去页面的url"
-                            type="text"
-                          />
-                        )}
-                      </FormItem>
-                      <FormItem hasFeedback>
-                        {getFieldDecorator('fileName', {
-                          rules: [{ required: true, message: '请输入文件名' }],
-                        })(
-                          <Input
-                            addonBefore="文件名"
-                            placeholder="请输入存放的文件名称"
-                            type="text"
-                          />
-                        )}
-
-                      </FormItem>
-                </Col>
-              </Row>
-              <Row  style={{paddingBottom: "20px"}}>
-                <Col span={12} offset={6}>
-                  <FormItem
-                  style={{width: '100%'}}>
-                  {getFieldDecorator('contentType')(
-                    <RadioGroup>
-                      <Radio value="all">全部</Radio>
-                      <Radio value="text">文字</Radio>
-                      <Radio value="image">图片</Radio>
-                    </RadioGroup>
-                  )}
-                  </FormItem>
-                </Col>
-              </Row>
-              <Row  style={{paddingBottom: "20px"}}>
-                <Col span={12} offset={6}>
-                  <FormItem>
-                    <Button type="primary" htmlType="submit">执行</Button>
-                  </FormItem>
-                </Col>
-              </Row>
-              </Form>
-            </Spin>
+              <h1 id="PerformName">hello, wxr.</h1>
             </div>
           </div>
         <div id="companyName" className="companyName"></div>
