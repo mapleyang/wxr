@@ -1,8 +1,4 @@
-# react与express构建淘票票页面
-### [vue2.0构建淘票票，请点击这里](https://github.com/canfoo/vue2.0-taopiaopiao)
-
 ## 描述
-前段时间用[vue2.0构建的淘票票app](https://github.com/canfoo/vue2.0-taopiaopiao)，得到许多童鞋的支持，这些天一气呵成用react又来重构一下这个项目，目的无他，在于分享和共同进步！因此这个项目与[vue2.0-taopiaopiao](https://github.com/canfoo/vue2.0-taopiaopiao)项目的结构是一致的，项目中同样个server服务，模拟服务器环境，为前端提供数据来源，当用`npm run deploy`命令运行前端环境时，就可以直接将前端资源部署到server服务里。因此本项目有两个环境，一个是前端开发环境(端口是3000)，一个是server服务环境(端口是9000)。
 
 主要技术栈：<br/>
 - react
@@ -69,33 +65,4 @@
 ```
 
 ## 后台接口
-本项目是手动抓取淘票票部分数据，数据是16年12月份的，城市数据只有北上广有数据，其它城市都是随机从北上广数据抽取过来的，电影数据也是部分有数据。抓取的数据存放在server目录里的database里，供前端调用。
-
-1. 访问淘票票首页路径： `http://localhost:9000/app`
-
-2. 部分数据接口
-	- 获取热映数据 
-	```
-	method: GET
- 	url: http://localhost:9000/movie/hot/?city=bj
- 	参数说明: city可以为bj、sh、gz
-	```
-	- 获取即将上映数据 
-	```
-	method: GET
- 	url: http://localhost:9000/movie/coming/?limit=20&offset=0
- 	参数说明: limit为每次请求的数据数量，offset为所有数据的偏移量
-	```
-	- 获取城市数据
-	```
-	method: GET
- 	url: http://localhost:9000/movie/city
-	```
-	- 获取电影院数据
-	```
-	method: GET
- 	url: http://localhost:9000/movie/cinema/?city=bj
- 	参数说明:  city可以为bj、sh、gz
-	```
-## 项目博客地址
-如果对项目有疑惑的地方，请到[http://www.cnblogs.com/canfoo/p/6394761.html](http://www.cnblogs.com/canfoo/p/6394761.html)里留言。如果觉得这个项目对你有帮助的话，请Star一下本项目，这是对作者最大的支持。
+抓取的数据存放在server目录里的database里，供前端调用。
