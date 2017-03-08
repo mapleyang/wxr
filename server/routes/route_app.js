@@ -57,11 +57,12 @@ function sendDataFn(req, res, filename, needcity) {
 }
 
 exports.index = (req, res) => {
-    console.log(req)
-    var test = {
-        test: "hello"
-    }
-   sendDataFn(req, res, 'coming.json', false);
+   //  console.log(req)
+   //  var test = {
+   //      test: "hello"
+   //  }
+   // sendDataFn(req, res, 'coming.json', false);
+   res.render("../views/index.html")
 }
 
 exports.coming = (req, res, next) => {
